@@ -20,8 +20,6 @@ function main() {
   );
 }
 
-main();
-
 export default main;
 
 // Será executado todos os dias às 00:00
