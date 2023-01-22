@@ -1,4 +1,5 @@
 import twitterClient from "../config/TwitterConfig";
+import main from "../index";
 
 class TwitterApi {
   private async uploadMedia(sourcePath: string): Promise<string> {
@@ -18,9 +19,17 @@ class TwitterApi {
         }
       });
       console.log("Media successful tweeted!!");
-    } catch (error) {
+    } catch (error: any) {
+      if (this.isGifUploadError(error)) {
+        main();
+      }
       throw error;
     }
+  }
+
+  private isGifUploadError(error: any) {
+    if (error.code === 400) return true;
+    return false;
   }
 
   public async uploadAndTweetMedia(mediaSourcePath: string, postCaption?: string) {
