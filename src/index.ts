@@ -22,8 +22,11 @@ function main() {
 
 main();
 
-// const cronTweet = new CronJob("*/30 * * * * *", async () => {
-//   main();
-// });
+export default main;
 
-// cronTweet.start();
+// Será executado todos os dias às 00:00
+const cronTweet = new CronJob("0 0 * * *", async () => {
+  main();
+});
+
+cronTweet.start();
