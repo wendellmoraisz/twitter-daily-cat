@@ -1,7 +1,7 @@
-import CatApi from "./classes/CatApi";
-import FileManager from "./classes/FileManager";
-import MessageWriter from "./classes/MessageWriter";
-import TwitterApi from "./classes/TwitterApi";
+import CatApi from "./services/CatApi";
+import FileManager from "./services/FileManager";
+import MessageWriter from "./services/MessageWriter";
+import TwitterApi from "./services/TwitterApi";
 const CronJob = require("cron").CronJob;
 
 function main() {
