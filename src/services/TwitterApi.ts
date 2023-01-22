@@ -1,5 +1,4 @@
 import twitterClient from "../config/TwitterConfig";
-require("dotenv").config({ path: __dirname + "/.env" });
 
 class TwitterApi {
   private async uploadMedia(sourcePath: string): Promise<string> {
@@ -10,12 +9,8 @@ class TwitterApi {
     }
   }
 
-  public async uploadAndTweetMedia(
-    mediaSourcePath: string,
-    postCaption?: string
-  ): Promise<void> {
+  private async tweetMedia(mediaId: string, postCaption?: string) {
     try {
-      const mediaId = await this.uploadMedia(mediaSourcePath);
       await twitterClient.v2.tweet({
         text: postCaption ?? "",
         media: {
@@ -24,7 +19,16 @@ class TwitterApi {
       });
       console.log("Media successful tweeted!!");
     } catch (error) {
-      console.log(`Error in Tweet Media: ${error}`);
+      throw error;
+    }
+  }
+
+  public async uploadAndTweetMedia(mediaSourcePath: string, postCaption?: string) {
+    try {
+      const mediaId = await this.uploadMedia(mediaSourcePath);
+      await this.tweetMedia(mediaId, postCaption);
+    } catch (error) {
+      console.log(error);
     }
   }
 }
