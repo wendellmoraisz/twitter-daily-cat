@@ -5,7 +5,7 @@ class FileManager {
   public downloadAndSaveImage(
     imgURL: string,
     destinyPath: string,
-    callback: any
+    callback?: () => void
   ): void {
     request.head(imgURL, () => {
       request(imgURL)

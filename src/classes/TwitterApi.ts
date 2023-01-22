@@ -12,12 +12,12 @@ class TwitterApi {
 
   public async uploadAndTweetMedia(
     mediaSourcePath: string,
-    postCaption: string
+    postCaption?: string
   ): Promise<void> {
     try {
       const mediaId = await this.uploadMedia(mediaSourcePath);
       await twitterClient.v2.tweet({
-        text: postCaption,
+        text: postCaption ?? "",
         media: {
           media_ids: [mediaId]
         }

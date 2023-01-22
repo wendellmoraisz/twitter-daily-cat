@@ -14,7 +14,9 @@ function main() {
   fileManager.downloadAndSaveImage(
     catApi.randomCatUrl,
     uploadedImageSourcePath,
-    () => twitterApi.uploadAndTweetMedia(uploadedImageSourcePath, postMessage)
+    () => {
+      twitterApi.uploadAndTweetMedia(uploadedImageSourcePath, postMessage);
+    }
   );
 }
 
