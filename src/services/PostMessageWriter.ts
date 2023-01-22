@@ -2,11 +2,7 @@ class PostMessageWriter {
   private static referenceDate = new Date("03-05-2022");
 
   public static getPostMessage() {
-    return this.formatMessageToUrl(`${this.getDaysQuantity()} dias`);
-  }
-
-  private static formatMessageToUrl(message: string) {
-    return message.replaceAll(" ", "%20");
+    return `${this.getDaysQuantity()} dias`;
   }
 
   private static getDaysQuantity() {
