@@ -1,6 +1,6 @@
 import CatApi from "./services/CatApi";
 import FileManager from "./services/FileManager";
-import MessageWriter from "./services/MessageWriter";
+import PostMessageWriter from "./services/PostMessageWriter";
 import TwitterApi from "./services/TwitterApi";
 const CronJob = require("cron").CronJob;
 
@@ -9,13 +9,13 @@ function main() {
   const twitterApi = new TwitterApi();
   const fileManager = new FileManager();
   const uploadedImageSourcePath = `${__dirname}/img/cat.png`;
-  const postMessage = MessageWriter.getMessage();
+  const postMessage = PostMessageWriter.getPostMessage();
 
   fileManager.downloadAndSaveImage(
-    catApi.randomCatUrl,
+    `${catApi.catWithTextUrl}/${postMessage}`,
     uploadedImageSourcePath,
     () => {
-      twitterApi.uploadAndTweetMedia(uploadedImageSourcePath, postMessage);
+      twitterApi.uploadAndTweetMedia(uploadedImageSourcePath);
     }
   );
 }
