@@ -2,6 +2,15 @@ import twitterClient from "../config/TwitterConfig";
 import main from "../index";
 
 class TwitterApi {
+  public async uploadAndTweetMedia(mediaSourcePath: string, postCaption?: string) {
+    try {
+      const mediaId = await this.uploadMedia(mediaSourcePath);
+      await this.tweetMedia(mediaId, postCaption);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   private async uploadMedia(sourcePath: string): Promise<string> {
     try {
       return await twitterClient.v1.uploadMedia(sourcePath);
@@ -30,15 +39,6 @@ class TwitterApi {
   private isGifUploadError(error: any) {
     if (error.code === 400) return true;
     return false;
-  }
-
-  public async uploadAndTweetMedia(mediaSourcePath: string, postCaption?: string) {
-    try {
-      const mediaId = await this.uploadMedia(mediaSourcePath);
-      await this.tweetMedia(mediaId, postCaption);
-    } catch (error) {
-      console.log(error);
-    }
   }
 }
 
