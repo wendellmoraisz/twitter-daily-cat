@@ -6,6 +6,9 @@ const CronJob = require("cron").CronJob;
 const express = require("express");
 const app = express();
 const PORT = 443;
+const cors = require("cors");
+
+app.use(cors());
 
 app.get("/", (req: any, res: any) => {
   res.send("Hello!");
