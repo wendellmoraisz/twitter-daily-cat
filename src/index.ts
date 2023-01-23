@@ -22,8 +22,6 @@ function main() {
 
 export default main;
 
-main();
-
 const cronTweet = new CronJob("0 0 * * *", async () => {
   // Será executado todos os dias às 00:00
   main();
