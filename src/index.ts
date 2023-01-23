@@ -3,6 +3,17 @@ import FileManager from "./services/FileManager";
 import PostMessageWriter from "./services/PostMessageWriter";
 import TwitterApi from "./services/TwitterApi";
 const CronJob = require("cron").CronJob;
+const express = require("express");
+const app = express();
+const PORT = 443;
+
+app.get("/", (req: any, res: any) => {
+  res.send("Hello!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Listening app on port ${PORT}`);
+});
 
 function main() {
   const catApi = new CatApi();
