@@ -3,4 +3,4 @@ class CatApi {
   public catWithTextUrl = "https://cataas.com/cat/says";
 }
 
-export default CatApi;
+module.exports = CatApi;

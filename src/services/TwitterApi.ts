@@ -1,5 +1,5 @@
-import twitterClient from "../config/TwitterConfig";
-import main from "../index";
+const twitterClient = require("../config/TwitterConfig");
+const mainFunction = require("../index");
 
 class TwitterApi {
   public async uploadAndTweetMedia(mediaSourcePath: string, postCaption?: string) {
@@ -30,7 +30,7 @@ class TwitterApi {
       console.log("Media successful tweeted!!");
     } catch (error: any) {
       if (this.isGifUploadError(error)) {
-        main();
+        mainFunction();
       }
       throw error;
     }
@@ -42,4 +42,4 @@ class TwitterApi {
   }
 }
 
-export default TwitterApi;
+module.exports = TwitterApi;

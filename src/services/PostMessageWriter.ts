@@ -12,4 +12,4 @@ class PostMessageWriter {
   }
 }
 
-export default PostMessageWriter;
+module.exports = PostMessageWriter;

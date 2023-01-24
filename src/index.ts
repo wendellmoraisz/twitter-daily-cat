@@ -1,7 +1,3 @@
-import CatApi from "./services/CatApi";
-import FileManager from "./services/FileManager";
-import PostMessageWriter from "./services/PostMessageWriter";
-import TwitterApi from "./services/TwitterApi";
 const CronJob = require("cron").CronJob;
 const express = require("express");
 const app = express();
@@ -34,7 +30,7 @@ function main() {
   );
 }
 
-export default main;
+module.exports = main
 
 const cronTweet = new CronJob("0 0 * * *", async () => {
   // Será executado todos os dias às 00:00
