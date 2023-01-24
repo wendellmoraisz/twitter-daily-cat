@@ -5,13 +5,13 @@ import TwitterApi from "./services/TwitterApi";
 const CronJob = require("cron").CronJob;
 const express = require("express");
 const app = express();
-const PORT = 443;
+const PORT = 3000;
 const cors = require("cors");
 
 app.use(cors());
 
-app.get("/", (req: any, res: any) => {
-  res.send("Hello!");
+app.get("/*", (req: any, res: any) => {
+  res.json({response: "ok"});
 });
 
 app.listen(PORT, () => {
