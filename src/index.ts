@@ -2,6 +2,7 @@ import CatApi from "./services/CatApi";
 import FileManager from "./services/FileManager";
 import PostMessageWriter from "./services/PostMessageWriter";
 import TwitterApi from "./services/TwitterApi";
+import { Request, Response } from "express";
 const express = require("express");
 const app = express();
 const PORT = 3000;
@@ -9,7 +10,12 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.get("/*", (req: any, res: any) => {
+app.get("/", (req: Request, res: Response) => {
+  res.json({ response: "ok" });
+});
+
+app.get("/run", (req: Request, res: Response) => {
+  main();
   res.json({ response: "ok" });
 });
 
@@ -32,7 +38,5 @@ function main() {
     }
   );
 }
-
-main();
 
 export default main;
