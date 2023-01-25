@@ -15,4 +15,4 @@ class FileManager {
   }
 }
 
-module.exports = FileManager;
+export default FileManager;
