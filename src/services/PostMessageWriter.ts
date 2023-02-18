@@ -7,7 +7,7 @@ class PostMessageWriter {
 
   private static getDaysQuantity() {
     return Math.ceil(
-      (Number(new Date()) - Number(this.referenceDate)) / (1000 * 60 * 60 * 24)
+      (Number(new Date()) - Number(this.referenceDate)) / (1000 * 60 * 60 * 24) - 1
     );
   }
 }
