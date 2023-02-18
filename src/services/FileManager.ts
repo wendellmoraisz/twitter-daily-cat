@@ -1,17 +1,23 @@
-const request = require("request");
-const fs = require("fs");
+import fs from "fs";
+import request from "request";
 
 class FileManager {
-  public async downloadAndSaveImage(
-    imgURL: string,
-    destinyPath: string,
-    callback?: () => void
-  ) {
-    try {
-      request.head(imgURL, () => {
-        request(imgURL).pipe(fs.createWriteStream(destinyPath)).on("close", callback);
+  public async downloadAndSaveImage(imgURL: string, destinyPath: string): Promise<void> {
+    const stream = request.get(imgURL);
+    const fileStream = fs.createWriteStream(destinyPath);
+
+    return new Promise((resolve, reject) => {
+      stream.on("error", (err) => {
+        fileStream.close();
+        reject(err);
       });
-    } catch (error) {}
+
+      fileStream.on("finish", () => {
+        resolve();
+      });
+
+      stream.pipe(fileStream);
+    });
   }
 }
 
