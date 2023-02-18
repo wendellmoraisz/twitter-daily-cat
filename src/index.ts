@@ -1,12 +1,14 @@
 import CatApi from "./services/CatApi";
 import FileManager from "./services/FileManager";
 import PostMessageWriter from "./services/PostMessageWriter";
-import TwitterApi from "./services/TwitterApi";
+import Twitter from "./services/Twitter";
+import twitterClient from "./config/TwitterConfig";
 import { Request, Response } from "express";
-const express = require("express");
+import express from "express";
+import cors from "cors";
+
 const app = express();
 const PORT = 3000;
-const cors = require("cors");
 
 app.use(cors());
 
@@ -20,23 +22,23 @@ app.get("/run", (req: Request, res: Response) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Listening app on port ${PORT}`);
+  console.log(`App is running on port ${PORT}`);
 });
 
 function main() {
+  const twitterApi = new Twitter(twitterClient);
   const catApi = new CatApi();
-  const twitterApi = new TwitterApi();
   const fileManager = new FileManager();
   const uploadedImageSourcePath = `${__dirname}/img/cat.png`;
   const postMessage = PostMessageWriter.getPostMessage();
 
-  fileManager.downloadAndSaveImage(
-    `${catApi.catWithTextUrl}/${postMessage}`,
-    uploadedImageSourcePath,
-    () => {
-      twitterApi.uploadAndTweetMedia(uploadedImageSourcePath);
-    }
-  );
+  fileManager
+    .downloadAndSaveImage(
+      `${catApi.catWithTextUrl}/${postMessage}`,
+      uploadedImageSourcePath
+    )
+    .then(() => twitterApi.uploadAndTweetMedia(uploadedImageSourcePath))
+    .catch((error) => console.log("Error in image download\n", error));
 }
 
 export default main;
