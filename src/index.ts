@@ -37,8 +37,13 @@ function main() {
       `${catApi.catWithTextUrl}/${postMessage}`,
       uploadedImageSourcePath
     )
-    .then(() => twitterApi.uploadAndTweetMedia(uploadedImageSourcePath))
+    .then(() => {
+      try {
+        twitterApi.uploadAndTweetMedia(uploadedImageSourcePath);
+      } catch (error) {
+        console.log(error);
+        main();
+      }
+    })
     .catch((error) => console.log("Error in image download\n", error));
 }
-
-export default main;

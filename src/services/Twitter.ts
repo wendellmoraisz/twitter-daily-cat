@@ -1,4 +1,3 @@
-import main from "../index";
 import { TwitterApi } from "twitter-api-v2";
 
 class Twitter {
@@ -13,7 +12,7 @@ class Twitter {
       const mediaId = await this.uploadMedia(mediaSourcePath);
       await this.tweetMedia(mediaId, postCaption);
     } catch (error) {
-      console.log(error);
+      throw new Error(String(error));
     }
   }
 
@@ -21,7 +20,7 @@ class Twitter {
     try {
       return await this.twitterClient.v1.uploadMedia(sourcePath);
     } catch (error) {
-      throw error;
+      throw new Error(`Error on Upload media\n ${error}`);
     }
   }
 
@@ -34,16 +33,9 @@ class Twitter {
         }
       });
       console.log("Media successful tweeted!!");
-    } catch (error: any) {
-      if (this.isGifUploadError(error)) {
-        main();
-      }
-      throw error;
+    } catch (error) {
+      throw new Error(`Error on Tweet media\n ${error}`);
     }
-  }
-
-  private isGifUploadError(error: any) {
-    return error.code === 400;
   }
 }
 
