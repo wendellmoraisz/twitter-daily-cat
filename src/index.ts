@@ -49,6 +49,6 @@ function main() {
     .catch((error) => console.log("Error in image download\n", error));
 }
 
-const cronTweet = new CronJob("0 12 * * *", () => main());
+const cronTweet = new CronJob("20 12 * * *", () => main());
 
 cronTweet.start();
