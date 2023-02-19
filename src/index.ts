@@ -29,7 +29,7 @@ function main() {
   const twitterApi = new Twitter(twitterClient);
   const catApi = new CatApi();
   const fileManager = new FileManager();
-  const uploadedImageSourcePath = `${__dirname}/img/cat.png`;
+  const uploadedImageSourcePath = `${__dirname}/cat.png`;
   const postMessage = PostMessageWriter.getPostMessage();
 
   fileManager
