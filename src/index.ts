@@ -6,6 +6,7 @@ import twitterClient from "./config/TwitterConfig";
 import { Request, Response } from "express";
 import express from "express";
 import cors from "cors";
+import { CronJob } from "cron";
 
 const app = express();
 const PORT = 3000;
@@ -29,7 +30,7 @@ function main() {
   const twitterApi = new Twitter(twitterClient);
   const catApi = new CatApi();
   const fileManager = new FileManager();
-  const uploadedImageSourcePath = `${__dirname}/cat.png`;
+  const uploadedImageSourcePath = `${__dirname}/img/cat.png`;
   const postMessage = PostMessageWriter.getPostMessage();
 
   fileManager
@@ -47,3 +48,7 @@ function main() {
     })
     .catch((error) => console.log("Error in image download\n", error));
 }
+
+const cronTweet = new CronJob("0 12 * * *", () => main());
+
+cronTweet.start();
