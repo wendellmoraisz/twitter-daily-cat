@@ -3,28 +3,7 @@ import FileManager from "./services/FileManager";
 import PostMessageWriter from "./services/PostMessageWriter";
 import Twitter from "./services/Twitter";
 import twitterClient from "./config/TwitterConfig";
-import { Request, Response } from "express";
-import express from "express";
-import cors from "cors";
 import { CronJob } from "cron";
-
-const app = express();
-const PORT = 3000;
-
-app.use(cors());
-
-app.get("/", (req: Request, res: Response) => {
-  res.json({ response: "ok" });
-});
-
-app.get("/run", (req: Request, res: Response) => {
-  main();
-  res.json({ response: "ok" });
-});
-
-app.listen(PORT, () => {
-  console.log(`App is running on port ${PORT}`);
-});
 
 function main() {
   const twitterApi = new Twitter(twitterClient);
