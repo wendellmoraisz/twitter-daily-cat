@@ -28,6 +28,7 @@ function main() {
     .catch((error) => console.log("Error in image download\n", error));
 }
 
-const cronTweet = new CronJob("20 12 * * *", () => main());
+// Irá executar todos os dias às 03:00
+const cronTweet = new CronJob("0 3 * * *", () => main());
 
 cronTweet.start();
